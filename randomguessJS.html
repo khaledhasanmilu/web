@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess Number Game</title>
+</head>
+<body>
+
+    <h2>Guess the Secret Number</h2>
+
+    <input type="text" id="guess" placeholder="Enter number">
+    <button onclick="checkGuess()">Submit</button>
+
+    <p id="feedback"></p>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 4501) + 500;
+        let attempts = 0;
+
+        function checkGuess() {
+            let guess = Number(document.getElementById("guess").value);
+            let feedback = document.getElementById("feedback");
+            let input = document.getElementById("guess");
+
+            if (attempts >= 5) return;
+
+            attempts++;
+
+            if (guess > secretNumber) {
+                feedback.innerHTML = "Too high!";
+            }
+            else if (guess < secretNumber) {
+                feedback.innerHTML = "Too low!";
+            }
+            else {
+                feedback.innerHTML = "Correct!";
+                input.disabled = true;
+                return;
+            }
+
+            if (attempts == 5) {
+                feedback.innerHTML += " Out of guesses!";
+                input.disabled = true;
+            }
+        }
+    </script>
+
+</body>
+</html>
