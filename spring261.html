@@ -1,81 +1,62 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>My Page</title>
-  </head>
-  <body>
-    <input type="text" name="cou" id="course" placeholder="course name" />
-    <input type="number" name="hou" id="hour" placeholder="study hour" />
-    <button id="add" onclick="Abc()">Add course</button>
-    <h1 id="disply"></h1>
-    
-    <script>
-      let courses = [];
-      let totalHours = 0;
-      let avgHour = 0;
-      let count = 0;
-      let msg = "";
-      function Abc() {
-        let course = document.getElementById("course").value;
-        let hour = document.getElementById("hour").value;
-        count++;
-        totalHours = totalHours + Number(hour);
-        avgHour = totalHours / count;
-        courses.push(course);
-        if (totalHours >= 20) {
-          document.getElementById("disply").innerHTML = "Total: " + totalHours +" hours, Average: " +avgHour +
-            " hours,Subjects: " +
-            "[" +
-            courses +
-            "]" +
-            "Weekly goal reached";
-        } else if (totalHours >= 13) {
-          if (count >= 7) msg = "Increase your study time";
-          else msg = "Almost Ready";
+<head>
+    <title>Study Hours Tracker</title>
+</head>
+<body>
 
-          document.getElementById("disply").innerHTML =
-            "Total: " +
-            totalHours +
-            " hours, Average: " +
-            avgHour +
-            " hours,Subjects: " +
-            "[" +
-            courses +
-            "]" +
-            msg;
-        } else if (totalHours >= 6) {
-          if (count >= 7) {
-            msg = "Increase your study time";
-          } else {
-            msg = "Good Progress";
-          }
-          document.getElementById("disply").innerHTML =
-            "Total: " +
-            totalHours +
-            " hours, Average: " +
-            avgHour +
-            " hours,Subjects: " +
-            "[" +
-            courses +
-            "]" +
-            msg;
-        } else if (totalHours >= 0) {
-          if (count >= 7) {
-            msg = "Increase your study time";
-          } else {
-            msg = "Study regulerly";
-          }
-          document.getElementById("disply").innerHTML =
-            "Total: " +
-            totalHours +
-            " hours, Average: " +
-            avgHour +
-            " hours,Subjects: " +
-            "[" +
-            courses +
-            "]" +
-            msg;
+    <input type="text" id="course" placeholder="Course Name">
+    <input type="number" id="hour" placeholder="Study Hour">
+
+    <button id="add" onclick="Abc()">Add Course</button>
+
+    <h1 id="disply"></h1>
+
+    <script>
+        let courses = [];
+        let totalHours = 0;
+        let count = 0;
+        let msg = "";
+
+        function Abc() {
+            let course = document.getElementById("course").value;
+            let hour = document.getElementById("hour").value;
+
+            if (course == "" || hour == "" || Number(hour) <= 0) {
+                alert("Enter valid input!");
+                return;
+            }
+
+            count++;
+            totalHours = totalHours + Number(hour);
+            let avgHour = totalHours / count;
+
+            courses.push(course);
+
+            if (totalHours >= 20) {
+                msg = "Weekly goal reached!";
+            }
+            else if (totalHours >= 13) {
+                msg = "Almost ready!";
+            }
+            else if (totalHours >= 6) {
+                msg = "Good progress!";
+            }
+            else {
+                msg = "Start studying regularly!";
+            }
+
+            if (count > 7 && totalHours < 20) {
+                msg = "Increase your study time!";
+            }
+
+            document.getElementById("disply").innerHTML =
+                "Total: " + totalHours +
+                " hours, Average: " + avgHour +
+                " hours, Subjects: [" + courses +
+                "], " + msg;
         }
-      }
     </script>
-  </body>
+
+</body>
 </html>
